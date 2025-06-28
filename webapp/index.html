@@ -1,61 +1,44 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Visita GPA</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    section { margin-bottom: 20px; }
-    label { display: block; margin-top: 10px; font-weight: bold; }
-    input, textarea { width: 100%; padding: 8px; margin-top: 4px; box-sizing: border-box; }
-    button { margin-top: 12px; padding: 10px; background: #0088cc; color: white; border: none; border-radius: 6px; cursor: pointer; width: 100%; }
-    .checks { display: flex; flex-wrap: wrap; gap: 10px; }
-    .checks label { flex: 1 0 45%; display: flex; align-items: center; gap: 8px; }
-  </style>
-</head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Visita GPA</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+body { font:16px sans-serif; padding:20px; }
+section { margin-bottom:20px; }
+label { font-weight:bold; margin-top:8px; display:block; }
+input,textarea { width:100%; padding:8px; margin-top:4px; box-sizing:border-box; }
+button { width:100%; padding:12px; background:#0088cc; color:#fff; border:none; border-radius:6px; cursor:pointer; }
+.checks { display:flex; flex-wrap:wrap; gap:10px; }
+.checks label { flex:1 0 45%; display:flex; align-items:center; gap:8px; }
+</style></head>
 <body>
-  <h2>🛒 Visita GPA</h2>
-  <section>
-    <label>Usuário Telegram:</label>
-    <input id="usuario" readonly>
-  </section>
-  <section>
-    <label>Código da Loja (4 dígitos):</label>
-    <input id="cod" maxlength="4" placeholder="Ex: 0412">
-  </section>
-  <section>
-    <label>Checklist:</label>
-    <div class="checks">
-      <label><input type="checkbox" value="Ruptura"> Ruptura</label>
-      <label><input type="checkbox" value="Preço errado"> Preço errado</label>
-      <label><input type="checkbox" value="Limpeza"> Limpeza</label>
-      <label><input type="checkbox" value="Atendimento"> Atendimento</label>
-    </div>
-  </section>
-  <section>
-    <label>Observações:</label>
-    <textarea id="obs" rows="4" placeholder="Digite algo..."></textarea>
-  </section>
-  <section>
-    <label>Fotos:</label>
-    <input type="file" id="fotos" accept="image/*" multiple>
-  </section>
-  <button id="btnEnviar">✅ Enviar Visita</button>
-  <script>
-    const tg = window.Telegram.WebApp;
-    tg.expand();
-    tg.ready();
-    const usuario = tg.initDataUnsafe?.user?.first_name || "";
-    document.getElementById("usuario").value = usuario;
-    document.getElementById("btnEnviar").onclick = () => {
-      const cod = document.getElementById("cod").value.trim();
-      const checklist = [...document.querySelectorAll('.checks input:checked')].map(c=>c.value);
-      const obs = document.getElementById("obs").value.trim();
-      if (cod.length !== 4) { alert("Digite o código da loja (4 dígitos)"); return; }
-      tg.sendData(JSON.stringify({ loja: cod, usuario, checklist, observacoes: obs }));
-      tg.close();
-    };
-  </script>
+<h2>🛒 Visita GPA</h2>
+<section><label>Usuário Telegram:</label><input id="usuario" readonly></section>
+<section><label>Código da Loja (4 dígitos):</label><input id="cod" maxlength="4" placeholder="Ex: 0412"></section>
+<section><label>Checklist:</label>
+  <div class="checks">
+    <label><input type="checkbox" value="Ruptura"> Ruptura</label>
+    <label><input type="checkbox" value="Preço errado"> Preço errado</label>
+    <label><input type="checkbox" value="Limpeza"> Limpeza</label>
+    <label><input type="checkbox" value="Atendimento"> Atendimento</label>
+  </div>
+</section>
+<section><label>Observações:</label><textarea id="obs" rows="4" placeholder="Digite algo..."></textarea></section>
+<button id="btnEnviar">✅ Enviar Visita</button>
+<script>
+const tg = window.Telegram.WebApp;
+tg.expand(); tg.ready();
+const usuario = tg.initDataUnsafe?.user?.first_name || "";
+document.getElementById("usuario").value = usuario;
+document.getElementById("btnEnviar").onclick = () => {
+  const cod = document.getElementById("cod").value.trim();
+  if (cod.length !== 4) return alert("Código da loja precisa ter 4 dígitos.");
+  const checklist = [...document.querySelectorAll('.checks input:checked')].map(c=>c.value);
+  const obs = document.getElementById("obs").value.trim();
+  tg.sendData(JSON.stringify({ loja: cod, usuario, checklist, observacoes: obs }));
+  tg.close();
+};
+</script>
 </body>
 </html>
