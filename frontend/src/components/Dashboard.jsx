@@ -1,0 +1,1 @@
+import React from 'react'; const Dashboard = () => <div>Dashboard Simples</div>; export default Dashboard;

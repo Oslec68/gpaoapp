@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Visita GPA</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <h2>🛒 Visita GPA</h2>
+  <label>Usuário:</label>
+  <input id="usuario" placeholder="Nome do usuário">
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+    tg.ready();
+    if (tg.initDataUnsafe?.user?.first_name) {
+      document.getElementById("usuario").value = tg.initDataUnsafe.user.first_name;
+    }
+  </script>
+</body>
+</html>
