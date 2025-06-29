@@ -2,7 +2,7 @@ import logging
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
-TOKEN = "SEU_TOKEN_AQUI"
+TOKEN = "7569335662:AAEv99Vo8nNH6sGrGay8PXJH6qUMsgpoMD8"
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
