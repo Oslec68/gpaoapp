@@ -3,8 +3,10 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppI
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
 TOKEN = "7569335662:AAEv99Vo8nNH6sGrGay8PXJH6qUMsgpoMD8"
-
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def visita_loja(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    url = "https://oslec68.github.io/gpaoapp/frontend/"  # ou a URL real hospedada
+    await update.message.reply_text(
+        f"🔍 Acesse o formulário de visita da loja:\n\n{url}"
     keyboard = [
         [InlineKeyboardButton("✅ Iniciar Visita GPA", web_app=WebAppInfo(url="https://oslec68.github.io/gpa-visita-telegram-webapp/webapp/"))]
     ]
